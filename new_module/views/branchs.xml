@@ -1,0 +1,61 @@
+<openerp>
+    <data>
+
+        <record id="hr_branch_form_view" model="ir.ui.view">
+            <field name="model">hr.branch</field>
+            <field name="name">Branches</field>
+            <field name="arch" type="xml">
+                <form string="Branches">
+                    <sheet>
+                        <group>
+                            <group string="Basic information">
+                                <field name="name" required="1"/>
+                                <field name="po_bos" readonly="1"/>
+                                <field name="type" required="1"/>
+                            </group>
+
+                            <group string="other information">
+                                <field name="address"/>
+                                <field name="open_date"/>
+                                <field name="close_time"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_branch_tree_view" model="ir.ui.view">
+            <field name="model">hr.branch</field>
+            <field name="name">Branches</field>
+            <field name="arch" type="xml">
+                <tree string="Branched">
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="po_bos"/>
+                    <field name="open_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_branch_action" model="ir.actions.act_window">
+            <field name="name">branchs</field>
+            <field name="res_model">hr.branch</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem
+            id="hr_branch_menu_root"
+            name="Branches"
+            sequence="100"/>
+
+        <menuitem
+            id="hr_branch_menu"
+            action="hr_branch_action"
+            parent="hr_branch_menu_root"
+            name="branches"
+            sequence="10"/>
+
+    </data>
+</openerp>

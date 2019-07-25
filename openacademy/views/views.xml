@@ -1,0 +1,143 @@
+<openerp>
+    <data>
+        <!-- explicit list view definition -->
+
+        <record model="ir.ui.view" id="openacademy.form">
+            <field name="name">openacademy list</field>
+            <field name="model">openacademy.openacademy</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Review" name="action_review" type="object" states="draft" class="oe_highlight"
+                                confirm="Are you sure to review ?"/>
+                        <button string="Confirm" name="action_confirm" type="object" states="reviewed" class="oe_highlight"/>
+                        <button string="Refuse" name="action_refuse" type="object" states="draft,reviewed"/>
+                        <button string="Set to draft" name="action_reset" type="object" states="refused"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,reviewed,confirmed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="value" />
+                                <field name="is_technical" />
+                            </group>
+                            <group>
+                                <field name="sum_value" readonly="0"/>
+                                <field name="employee_id"/>
+                                <field name="gender"/>
+                                <field name="type" widget="radio"/>
+                            </group>
+                            <group>
+                                <field name="degree"/>
+                                <field name="level"/>
+                                <field name="degree_2"/>
+                            </group>
+                            <group>
+                                <field name="total_duration"/>
+                                <button string="Recalculate" name="recalculate" type="object"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Employees">
+                                <group>
+                                    <field name="responsible_ids" />
+                                </group>
+                            </page>
+                            <page string="Topic">
+                                <group string="Topics">
+                                    <field name="topics_ids" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="topics_tree">
+            <field name="name">topics_tree</field>
+            <field name="model">topics</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" required="1"/>
+                    <field name="duration_hours" sum="Total duration"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="topics_form">
+            <field name="name">topics_form</field>
+            <field name="model">topics</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                        <group>
+                            <field name="duration_hours"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="openacademy.list">
+            <field name="name">openacademy list</field>
+            <field name="model">openacademy.openacademy</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="value" sum="Total value"/>
+                    <field name="employee_id"/>
+                    <field name="sum_value"/>
+                    <field name="level"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="openacademy.action_window">
+            <field name="name">openacademy window</field>
+            <field name="res_model">openacademy.openacademy</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- server action to the one above -->
+
+        <record model="ir.actions.server" id="openacademy.action_server">
+            <field name="name">openacademy server</field>
+            <field name="model_id" ref="model_openacademy_openacademy"/>
+            <field name="code">
+                action = {
+                "type": "ir.actions.act_window",
+                "view_mode": "tree,form",
+                "res_model": self._name,
+                }
+            </field>
+        </record>
+
+
+        <!-- Top menu item -->
+
+        <menuitem name="openacademy" id="openacademy.menu_root"/>
+
+        <!-- menu categories -->
+
+        <menuitem name="Menu 1" id="openacademy.menu_1" parent="openacademy.menu_root"/>
+        <menuitem name="Menu 2" id="openacademy.menu_2" parent="openacademy.menu_root"/>
+
+        <!-- actions -->
+
+        <menuitem name="List" id="openacademy.menu_1_list" parent="openacademy.menu_1"
+                  action="openacademy.action_window"/>
+        <menuitem name="Server to list" id="openacademy" parent="openacademy.menu_2"
+                  action="openacademy.action_server"/>
+
+    </data>
+</openerp>

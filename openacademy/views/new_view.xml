@@ -1,0 +1,38 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="openacademy.xxxxas">
+            <field name="name">openacademy list</field>
+            <field name="model">openacademy.openacademy</field>
+            <field name="arch" type="xml">
+                <form >
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="name"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name=""/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="openacademy.xxxx">
+            <field name="name">openacademy list</field>
+            <field name="model">openacademy.openacademy</field>
+            <field name="arch" type="xml">
+
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
